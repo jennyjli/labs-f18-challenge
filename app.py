@@ -12,17 +12,14 @@ def main():
 def pokemon(query):
 	r = requests.get('http://pokeapi.co/api/v2/pokemon/'+query)
 	info = r.json()
-	#if isinstance(query, (int, long)):
-	#	return "The pokemon with id " + query + " is " + info['name'];
-	#else:
-	#	print query
-	#	return query + " has id " + info['id'];
-
 	try:
-		value = int(query)
-		return "The pokemon with id " + query + " is " + info['name'] + "."
-	except ValueError:
-		return query + " has id " + str(info['id']) + "."
+		try:
+			value = int(query)
+			return "The pokemon with id " + query + " is " + info['name'] + "."
+		except ValueError:
+			return query + " has id " + str(info['id']) + "."
+	except KeyError:
+		return "Invalid name or id."
   	
 if __name__ == '__main__':
     app.run()
